@@ -14,7 +14,7 @@ A simple offline launcher for Hytale that allows you to play the game for free.
 ### Windows
 
 1. Download the latest release from the [Releases](https://github.com/amiayweb/Hytale-F2P/releases) page
-2. Run `Hytale F2P Launcher Setup.exe` to install
+2. Run `Hytale F2P Launcher.exe` to install
 3. Launch the application from your desktop or start menu
 
 ### Linux
