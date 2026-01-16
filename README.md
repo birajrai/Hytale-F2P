@@ -36,6 +36,30 @@ See [BUILD.md](BUILD.md) for detailed build instructions.
 
 See [BUILD.md](BUILD.md) for detailed build instructions.
 
+## 📋 Changelog
+
+### v1.0.1
+-  Added custom installation feature with collapsible options
+-  Installation folder selection with file browser dialog
+-  Launcher now stays always on top
+-  Smart game detection - hides custom installation if already installed
+-  Uninstall button for easy game removal
+-  Dynamic button text: "INSTALL" when not installed, "PLAY" when ready
+-  Fixed installation paths to properly use custom directory
+-  Improved UI layout to prevent overflow issues
+
+### v1.0.0
+-  First version
+-  Simple installation
+-  Offline gameplay support
+-  Automatic Java runtime management
+-  Clean and modern interface
+
+## 👥 Contributors
+
+- [@chasem-dev](https://github.com/chasem-dev)
+- [@crimera](https://github.com/crimera)
+
 ## Disclaimer
 
 This launcher is for educational purposes only.
