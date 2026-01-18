@@ -119,6 +119,15 @@ async function loadAllSettings() {
   await loadPlayerName();
 }
 
+async function openGameLocation() {
+  try {
+    if (window.electronAPI && window.electronAPI.openGameLocation) {
+      await window.electronAPI.openGameLocation();
+    }
+  } catch (error) {
+    console.error('Error opening game location:', error);
+  }
+}
 
 export function getCurrentJavaPath() {
   if (customJavaCheck && customJavaCheck.checked && customJavaPath) {
@@ -134,6 +143,9 @@ export function getCurrentPlayerName() {
   }
   return 'Player';
 }
+
+// Make openGameLocation globally available
+window.openGameLocation = openGameLocation;
 
 document.addEventListener('DOMContentLoaded', initSettings);
 

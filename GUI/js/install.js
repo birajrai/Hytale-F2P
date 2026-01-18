@@ -30,6 +30,24 @@ export function setupInstallation() {
   if (installPlayerName) {
     installPlayerName.addEventListener('change', savePlayerName);
   }
+
+  if (window.electronAPI && window.electronAPI.onProgressUpdate) {
+    window.electronAPI.onProgressUpdate((data) => {
+      if (window.LauncherUI) {
+        window.LauncherUI.showProgress();
+        window.LauncherUI.updateProgress(data);
+      }
+    });
+  }
+
+  if (window.electronAPI && window.electronAPI.onProgressComplete) {
+    window.electronAPI.onProgressComplete(() => {
+      if (window.LauncherUI) {
+        window.LauncherUI.hideProgress();
+      }
+      resetInstallButton();
+    });
+  }
 }
 
 export async function installGame() {

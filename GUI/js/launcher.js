@@ -31,6 +31,15 @@ export function setupLauncher() {
       }
     });
   }
+
+  if (window.electronAPI && window.electronAPI.onProgressComplete) {
+    window.electronAPI.onProgressComplete(() => {
+      if (window.LauncherUI) {
+        window.LauncherUI.hideProgress();
+      }
+      resetPlayButton();
+    });
+  }
 }
 
 export async function launch() {

@@ -196,8 +196,26 @@ function setupFirstLaunchHandlers() {
     updateProgress(data);
   });
   
+  let lockButtonTimeout = null;
+  
   window.electronAPI.onLockPlayButton((locked) => {
     lockPlayButton(locked);
+    
+    if (locked) {
+      if (lockButtonTimeout) {
+        clearTimeout(lockButtonTimeout);
+      }
+      lockButtonTimeout = setTimeout(() => {
+        console.warn('Play button has been locked for too long, forcing unlock');
+        lockPlayButton(false);
+        lockButtonTimeout = null;
+      }, 20000);
+    } else {
+      if (lockButtonTimeout) {
+        clearTimeout(lockButtonTimeout);
+        lockButtonTimeout = null;
+      }
+    }
   });
 }
 
@@ -447,6 +465,17 @@ function setupUI() {
   progressSize = document.getElementById('progressSize');
   
   lockPlayButton(true);
+  
+  setTimeout(() => {
+    const playButton = document.getElementById('homePlayBtn');
+    if (playButton && playButton.getAttribute('data-locked') === 'true') {
+      const spanElement = playButton.querySelector('span');
+      if (spanElement && spanElement.textContent === 'CHECKING...') {
+        console.warn('Play button still locked after startup timeout, forcing unlock');
+        lockPlayButton(false);
+      }
+    }
+  }, 25000);
   
   handleNavigation();
   setupWindowControls();
