@@ -276,7 +276,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.handle('launch-game', async (event, playerName, javaPath, installPath, gpuPreference) => {
+ipcMain.handle('launch-game', async (event, playerName, javaPath, installPath) => {
   try {
     const progressCallback = (message, percent, speed, downloaded, total) => {
       if (mainWindow && !mainWindow.isDestroyed()) {
@@ -291,7 +291,7 @@ ipcMain.handle('launch-game', async (event, playerName, javaPath, installPath, g
       }
     };
 
-    const result = await launchGameWithVersionCheck(playerName, progressCallback, javaPath, installPath, gpuPreference);
+    const result = await launchGameWithVersionCheck(playerName, progressCallback, javaPath, installPath);
     
     return result;
   } catch (error) {
@@ -702,26 +702,6 @@ ipcMain.handle('open-download-page', async () => {
 
 ipcMain.handle('get-update-info', async () => {
   return updateManager.getUpdateInfo();
-});
-
-ipcMain.handle('get-gpu-info', () => {
-  try {
-    return app.getGPUInfo('complete');
-  } catch (error) {
-    console.error('Error getting GPU info:', error);
-    return {};
-  }
-});
-
-ipcMain.handle('save-gpu-preference', (event, gpuPreference) => {
-  const { saveGPUPreference } = require('./backend/launcher');
-  saveGPUPreference(gpuPreference);
-  return { success: true };
-});
-
-ipcMain.handle('load-gpu-preference', () => {
-  const { loadGPUPreference } = require('./backend/launcher');
-  return loadGPUPreference();
 });
 
 ipcMain.handle('window-close', () => {
